@@ -41,7 +41,7 @@ class BottleControl extends React.Component {
 
   
   handleChangingSelectedBottle = (id) => {
-    const selectedBottle = this.props.masterBottleList.filter(bottle => bottle.id === id)[0];
+    const selectedBottle = this.props.masterBottleList[id];
     const { dispatch } = this.props;
     const action = a.selectedBottle(selectedBottle);
     dispatch(action);
@@ -52,7 +52,7 @@ class BottleControl extends React.Component {
     const action = a.toggleEditing();
     dispatch(action);
   }
-  
+
   handleEditingBottleInList = (bottleToEdit) => {
     const editedMasterBottleList = this.props.masterBottleList
       .filter(bottle => bottle.id !== this.props.selectedBottle.id)
