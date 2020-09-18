@@ -1,6 +1,6 @@
 import * as c from '../actions/ActionTypes';
 
-export default (state = {}, action) => {
+export default (state = null, action) => {
   switch (action.type) {
   case c.SELECTED_BOTTLE:
     return state;

@@ -31,35 +31,28 @@ class BottleControl extends React.Component {
     }
   }
 
-
-  handleEditClick = () => {
+  handleAddingNewBottleToList = (newTicket) => {
     const { dispatch } = this.props;
-    const action = a.toggleEditing();
+    const action = a.addBottle(newTicket);
     dispatch(action);
+    const action2 = a.toggleForm();
+    dispatch(action2);
   }
 
+  
   handleChangingSelectedBottle = (id) => {
     const selectedBottle = this.props.masterBottleList.filter(bottle => bottle.id === id)[0];
     const { dispatch } = this.props;
     const action = a.selectedBottle(selectedBottle);
     dispatch(action);
   }
-
-  handleAddingNewBottleToList = (newBottle) => {
-    const newMasterBottleList = this.props.masterBottleList.concat(newBottle);
-    this.setState({
-      masterBottleList: newMasterBottleList,
-      formVisibleOnPage: false
-    });
-  }
-
-  handleDeletingBottle = (id) => {
+  
+  handleEditClick = () => {
     const { dispatch } = this.props;
-    const action = a.deleteBottle(id);
+    const action = a.toggleEditing();
     dispatch(action);
-    this.setState({selectedBottle: null});
   }
-
+  
   handleEditingBottleInList = (bottleToEdit) => {
     const editedMasterBottleList = this.props.masterBottleList
       .filter(bottle => bottle.id !== this.props.selectedBottle.id)
@@ -70,6 +63,13 @@ class BottleControl extends React.Component {
       selectedBottle: null
     });
   }
+  handleDeletingBottle = (id) => {
+    const { dispatch } = this.props;
+    const action = a.deleteBottle(id);
+    dispatch(action);
+    this.setState({selectedBottle: null});
+  }
+
 
   handleSellingShot = () => {
     const bottleToSell2 = this.state.masterBottleList
