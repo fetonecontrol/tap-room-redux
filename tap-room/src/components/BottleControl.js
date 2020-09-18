@@ -3,8 +3,8 @@ import NewBottleForm from "./NewBottleForm";
 import BottleList from "./BottleList";
 import BottleDetail from "./BottleDetail";
 import EditBottleForm from './EditBottleForm';
-// import SellShot from './SellShot';
 import Button from 'react-bootstrap/Button';
+import { connect } from 'react-redux';
 
 class BottleControl extends React.Component {
 
@@ -12,7 +12,6 @@ class BottleControl extends React.Component {
     super(props);
     this.state = {
       formVisibleOnPage: false,
-      masterBottleList: [],
       selectedBottle: null,
       editing: false
     };
@@ -129,5 +128,6 @@ class BottleControl extends React.Component {
     );
   }
 }
+BottleControl = connect(mapStateToProps)(BottleControl);
 
 export default BottleControl;
