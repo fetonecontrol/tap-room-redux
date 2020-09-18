@@ -11,21 +11,16 @@ class BottleControl extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      selectedBottle: null,
-    };
   }
 
   handleClick = () => {
-    if (this.state.selectedBottle != null) {
-      const { dispatch } = this.props;
-      const action = a.toggleEditing();
+    const { dispatch } = this.props;
+    const action = a.toggleEditing();
+    const action2 = a.selectedBottle();
+    if (this.props.selectedBottle != null) {
+      dispatch(action2);
       dispatch(action);
-      this.setState({
-        selectedBottle: null,
-      });
     } else {
-      const { dispatch } = this.props;
       const action = a.toggleForm();
       dispatch(action);
     }
@@ -41,11 +36,18 @@ class BottleControl extends React.Component {
 
   handleChangingSelectedBottle = (id) => {
     const selectedBottle = this.props.masterBottleList[id];
-    this.setState({selectedBottle: selectedBottle});
+    console.log(selectedBottle);
+    const { dispatch } = this.props;
+    const action = a.selectedBottle(selectedBottle);
+    const action2 = a.toggleForm();
+    dispatch(action);
+    dispatch(action2);
   }
   
   handleEditClick = () => {
-    this.setState({editing: true});
+    const { dispatch } = this.props;
+    const action = a.toggleEditing();
+    dispatch(action);
   }
   
   handleEditingBottleInList = (bottleToEdit) => {
@@ -53,32 +55,34 @@ class BottleControl extends React.Component {
     const action = a.addBottle(bottleToEdit);
     dispatch(action);
 
-    const { dispatch } = this.props;
     const action2 = a.toggleForm();
     dispatch(action2);
 
-    this.setState({
-      selectedBottle: null
-    });
+    const action3 = a.selectedBottle(bottleToEdit);
+
+    dispatch(action3);
   }
   
   handleDeletingBottle = (id) => {
     const { dispatch } = this.props;
     const action = a.deleteBottle(id);
     dispatch(action);
-    this.setState({selectedBottle: null});
+    const action2 = a.selectedBottle();
+    dispatch(action2);
   }
 
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.props.editing ) {      
-      currentlyVisibleState = <EditBottleForm bottle = {this.state.selectedBottle} onEditBottle = {this.handleEditingBottleInList} />
+      currentlyVisibleState = <EditBottleForm
+      bottle = {this.props.selectedBottle}
+      onEditBottle = {this.handleEditingBottleInList} />
       buttonText = "Return to Bottle List";
-    } else if (this.state.selectedBottle != null) {
+    } else if (this.props.selectedBottle != null) {
       currentlyVisibleState = 
       <BottleDetail 
-        bottle = {this.state.selectedBottle} 
+        bottle = {this.props.selectedBottle} 
         onClickingDelete = {this.handleDeletingBottle} 
         onClickingEdit = {this.handleEditClick} />
         buttonText = "Return to Bottle List";
@@ -110,7 +114,8 @@ const mapStateToProps = state => {
   return {
     masterBottleList: state.masterBottleList,
     formVisibleOnPage: state.formVisibleOnPage,
-    editing: state.editing
+    editing: state.editing,
+    selectedBottle: state.selectedBottle
   }
 }
 

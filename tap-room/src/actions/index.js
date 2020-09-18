@@ -13,6 +13,11 @@ export const deleteBottle = id => ({
   id
 });
 
+export const selectedBottle = bottle => ({
+  type: c.SELECTED_BOTTLE,
+  bottle
+})
+
 export const addBottle = (bottle) => {
   const { names, location, issue, id } = bottle;
   return {
