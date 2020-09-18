@@ -41,7 +41,7 @@ class BottleControl extends React.Component {
   handleChangingSelectedBottle = (id) => {
     const selectedBottle = this.props.masterBottleList.filter(bottle => bottle.id === id)[0];
     const { dispatch } = this.props;
-    const action = a.changeBottle(selectedBottle);
+    const action = a.selectedBottle(selectedBottle);
     dispatch(action);
   }
 
@@ -104,6 +104,7 @@ class BottleControl extends React.Component {
       onEditBottle = {this.handleEditingBottleInList} />
       buttonText = "Return to Bottle List";
     } else if (this.props.selectedBottle != null) {
+      console.log(this.props.selectedBottle);
       currentlyVisibleState = <BottleDetail 
       bottle = {this.props.selectedBottle} 
         onClickingSell = {this.handleSellingShot}

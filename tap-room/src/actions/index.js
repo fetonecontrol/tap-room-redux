@@ -9,8 +9,8 @@ export const toggleForm = () => ({
   type: c.TOGGLE_FORM,
 });
 
-export const changeBottle = id => ({
-  type: c.CHANGE_BOTTLE,
+export const selectedBottle = id => ({
+  type: c.SELECTED_BOTTLE,
   id
 });
 
