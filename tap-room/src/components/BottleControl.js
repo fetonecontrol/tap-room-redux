@@ -5,7 +5,7 @@ import BottleDetail from './BottleDetail';
 import EditBottleForm from './EditBottleForm';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import * as a from './../actions';
+import * as a from '../actions';
 
 class BottleControl extends React.Component {
 
@@ -13,15 +13,16 @@ class BottleControl extends React.Component {
     super(props);
     this.state = {
       selectedBottle: null,
-      editing: false
     };
   }
 
   handleClick = () => {
     if (this.state.selectedBottle != null) {
+      const { dispatch } = this.props;
+      const action = a.toggleEditing();
+      dispatch(action);
       this.setState({
         selectedBottle: null,
-        editing: false
       });
     } else {
       const { dispatch } = this.props;
@@ -51,8 +52,12 @@ class BottleControl extends React.Component {
     const { dispatch } = this.props;
     const action = a.addBottle(bottleToEdit);
     dispatch(action);
+
+    const { dispatch } = this.props;
+    const action2 = a.toggleForm();
+    dispatch(action2);
+
     this.setState({
-      editing: false,
       selectedBottle: null
     });
   }
@@ -67,7 +72,7 @@ class BottleControl extends React.Component {
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
-    if (this.state.editing ) {      
+    if (this.props.editing ) {      
       currentlyVisibleState = <EditBottleForm bottle = {this.state.selectedBottle} onEditBottle = {this.handleEditingBottleInList} />
       buttonText = "Return to Bottle List";
     } else if (this.state.selectedBottle != null) {
@@ -104,7 +109,8 @@ BottleControl.propTypes = {
 const mapStateToProps = state => {
   return {
     masterBottleList: state.masterBottleList,
-    formVisibleOnPage: state.formVisibleOnPage
+    formVisibleOnPage: state.formVisibleOnPage,
+    editing: state.editing
   }
 }
 

@@ -4,6 +4,10 @@ export const toggleForm = () => ({
   type: c.TOGGLE_FORM,
 });
 
+export const toggleEditing = () => ({
+  type: c.TOGGLE_EDITING,
+});
+
 export const deleteBottle = id => ({
   type: c.DELETE_BOTTLE,
   id
