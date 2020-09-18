@@ -36,12 +36,9 @@ class BottleControl extends React.Component {
 
   handleChangingSelectedBottle = (id) => {
     const selectedBottle = this.props.masterBottleList[id];
-    console.log(selectedBottle);
     const { dispatch } = this.props;
     const action = a.selectedBottle(selectedBottle);
-    const action2 = a.toggleForm();
     dispatch(action);
-    dispatch(action2);
   }
   
   handleEditClick = () => {
@@ -90,7 +87,6 @@ class BottleControl extends React.Component {
       currentlyVisibleState = <NewBottleForm onNewBottleCreation={this.handleAddingNewBottleToList}  />;
       buttonText = "Return to Bottle List";
     } else {
-      console.log(this.props.masterBottleList)
       currentlyVisibleState = <BottleList 
         bottleList={this.props.masterBottleList} 
         onBottleSelection={this.handleChangingSelectedBottle} />;

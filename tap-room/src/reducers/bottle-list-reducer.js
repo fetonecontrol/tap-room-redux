@@ -1,14 +1,15 @@
 import * as c from '../actions/ActionTypes';
 
 export default (state = {}, action) => {
-  const { names, location, issue, id } = action;
+  const { name, kind, price, origin, id } = action;
   switch (action.type) {
   case c.ADD_BOTTLE:
     return Object.assign({}, state, {
       [id]: {
-        names: names,
-        location: location,
-        issue: issue,
+        names: name,
+        kind: kind,
+        price: price,
+        origin: origin,
         id: id
       }
     });
