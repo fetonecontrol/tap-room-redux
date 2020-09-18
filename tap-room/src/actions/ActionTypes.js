@@ -1,5 +1,3 @@
 export const ADD_BOTTLE = 'ADD_BOTTLE';
 export const DELETE_BOTTLE = 'DELETE_BOTTLE';
 export const TOGGLE_FORM = 'TOGGLE_FORM';
-export const TOGGLE_EDITING = 'TOGGLE_EDITING';
-export const SELECTED_BOTTLE = 'SELECTED_BOTTLE';

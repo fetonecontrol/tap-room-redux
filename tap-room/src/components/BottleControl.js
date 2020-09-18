@@ -1,15 +1,14 @@
-import React from "react";
-import NewBottleForm from "./NewBottleForm";
-import BottleList from "./BottleList";
-import BottleDetail from "./BottleDetail";
+import React from 'react';
+import NewBottleForm from './NewBottleForm';
+import BottleList from './BottleList';
+import BottleDetail from './BottleDetail';
 import EditBottleForm from './EditBottleForm';
-import Button from 'react-bootstrap/Button';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 import * as a from './../actions';
 
 class BottleControl extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +16,7 @@ class BottleControl extends React.Component {
       editing: false
     };
   }
-  
+
   handleClick = () => {
     if (this.state.selectedBottle != null) {
       this.setState({
@@ -31,38 +30,33 @@ class BottleControl extends React.Component {
     }
   }
 
-  handleAddingNewBottleToList = (newTicket) => {
+  handleAddingNewBottleToList = (newBottle) => {
     const { dispatch } = this.props;
-    const action = a.addBottle(newTicket);
+    const action = a.addBottle(newBottle);
     dispatch(action);
     const action2 = a.toggleForm();
     dispatch(action2);
   }
 
-  
   handleChangingSelectedBottle = (id) => {
     const selectedBottle = this.props.masterBottleList[id];
-    const { dispatch } = this.props;
-    const action = a.selectedBottle(selectedBottle);
-    dispatch(action);
+    this.setState({selectedBottle: selectedBottle});
   }
   
   handleEditClick = () => {
-    const { dispatch } = this.props;
-    const action = a.toggleEditing();
-    dispatch(action);
+    this.setState({editing: true});
   }
-
+  
   handleEditingBottleInList = (bottleToEdit) => {
-    const editedMasterBottleList = this.props.masterBottleList
-      .filter(bottle => bottle.id !== this.props.selectedBottle.id)
-      .concat(bottleToEdit);
+    const { dispatch } = this.props;
+    const action = a.addBottle(bottleToEdit);
+    dispatch(action);
     this.setState({
-      masterBottleList: editedMasterBottleList,
       editing: false,
       selectedBottle: null
     });
   }
+  
   handleDeletingBottle = (id) => {
     const { dispatch } = this.props;
     const action = a.deleteBottle(id);
@@ -70,69 +64,36 @@ class BottleControl extends React.Component {
     this.setState({selectedBottle: null});
   }
 
-
-  handleSellingShot = () => {
-    const bottleToSell2 = this.state.masterBottleList
-    .filter(bottle => bottle.id === this.state.selectedBottle.id)
-    const subtractCount = this.state.selectedBottle.count -12;
-    const bottleToAdd = {
-      name: this.state.selectedBottle.name, 
-      type: this.state.selectedBottle.type,
-      price: this.state.selectedBottle.price,
-      origin: this.state.selectedBottle.origin,
-      tastingNotes: this.state.selectedBottle.tastingNotes,
-      id: this.state.selectedBottle.id,
-      count: subtractCount };
-    const editedMasterBottleList = this.state.masterBottleList
-    .filter(bottle => bottle.id !== this.state.selectedBottle.id)
-    .concat(bottleToAdd);
-    this.setState({
-      masterBottleList: editedMasterBottleList,
-      editing: false,
-      selectedBottle: null
-    });
-  }
-  
-
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
-    if (this.props.editing ) {      
-      currentlyVisibleState = 
-      <EditBottleForm
-      bottle = {this.props.selectedBottle}
-      onEditBottle = {this.handleEditingBottleInList} />
+    if (this.state.editing ) {      
+      currentlyVisibleState = <EditBottleForm bottle = {this.state.selectedBottle} onEditBottle = {this.handleEditingBottleInList} />
       buttonText = "Return to Bottle List";
-    } else if (this.props.selectedBottle != null) {
-      console.log(this.props.selectedBottle);
-      currentlyVisibleState = <BottleDetail 
-      bottle = {this.props.selectedBottle} 
-        onClickingSell = {this.handleSellingShot}
+    } else if (this.state.selectedBottle != null) {
+      currentlyVisibleState = 
+      <BottleDetail 
+        bottle = {this.state.selectedBottle} 
         onClickingDelete = {this.handleDeletingBottle} 
         onClickingEdit = {this.handleEditClick} />
         buttonText = "Return to Bottle List";
     } else if (this.props.formVisibleOnPage) {
-        currentlyVisibleState = <NewBottleForm onNewBottleCreation={this.handleAddingNewBottleToList} />
-        buttonText = "Return to Bottle List";
+      currentlyVisibleState = <NewBottleForm onNewBottleCreation={this.handleAddingNewBottleToList}  />;
+      buttonText = "Return to Bottle List";
     } else {
-        currentlyVisibleState = 
-          <BottleList 
-            bottleList={this.props.masterBottleList} 
-            onBottleSelection={this.handleChangingSelectedBottle} />
-        buttonText = "Add Bottle"
+      console.log(this.props.masterBottleList)
+      currentlyVisibleState = <BottleList 
+        bottleList={this.props.masterBottleList} 
+        onBottleSelection={this.handleChangingSelectedBottle} />;
     }
     return (
-      <div style={{ 
-        textAlign: 'center',
-        padding: '20px',
-        }}>
       <React.Fragment>
-          {currentlyVisibleState}
-          <Button variant="primary" onClick={this.handleClick}>{buttonText}</Button>
-        </React.Fragment>
-      </div>
+        {currentlyVisibleState}
+        <button onClick={this.handleClick}>{buttonText}</button>
+      </React.Fragment>
     );
   }
+
 }
 
 BottleControl.propTypes = {
@@ -142,13 +103,32 @@ BottleControl.propTypes = {
 const mapStateToProps = state => {
   return {
     masterBottleList: state.masterBottleList,
-    formVisibleOnPage: state.formVisibleOnPage,
-    selectedBottle: state.selectedBottle,
-    editing: state.editing,
-
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 
 BottleControl = connect(mapStateToProps)(BottleControl);
 
 export default BottleControl;
+                                                // handleSellingShot = () => {
+                                                //   const bottleToSell2 = this.state.masterBottleList
+                                                //   .filter(bottle => bottle.id === this.state.selectedBottle.id)
+                                                //   const subtractCount = this.state.selectedBottle.count -12;
+                                                //   const bottleToAdd = {
+                                                //     name: this.state.selectedBottle.name, 
+                                                //     type: this.state.selectedBottle.type,
+                                                //     price: this.state.selectedBottle.price,
+                                                //     origin: this.state.selectedBottle.origin,
+                                                //     tastingNotes: this.state.selectedBottle.tastingNotes,
+                                                //     id: this.state.selectedBottle.id,
+                                                //     count: subtractCount };
+                                                //   const editedMasterBottleList = this.state.masterBottleList
+                                                //   .filter(bottle => bottle.id !== this.state.selectedBottle.id)
+                                                //   .concat(bottleToAdd);
+                                                //   this.setState({
+                                                //     masterBottleList: editedMasterBottleList,
+                                                //     editing: false,
+                                                //     selectedBottle: null
+                                                //   });
+                                                // }
+                                                

@@ -1,17 +1,16 @@
 import * as c from './../actions/ActionTypes';
 
 
-export const toggleEditing = () => ({
-  type: c.TOGGLE_EDITING,
-});
+// export const toggleEditing = () => ({
+//   type: c.TOGGLE_EDITING,
+// });
+// export const selectedBottle = id => ({
+//   type: c.SELECTED_BOTTLE,
+//   id
+// });
 
 export const toggleForm = () => ({
   type: c.TOGGLE_FORM,
-});
-
-export const selectedBottle = id => ({
-  type: c.SELECTED_BOTTLE,
-  id
 });
 
 export const deleteBottle = id => ({
@@ -19,13 +18,26 @@ export const deleteBottle = id => ({
   id
 });
 
-export const addBottle = (ticket) => {
-  const { names, location, issue, id } = ticket;
+export const addBottle = (bottle) => {
+  const { name, type, price, origin, tastingNotes, count, id } = bottle;
   return {
     type: c.ADD_BOTTLE,
-    names: names,
-    location: location,
-    issue: issue,
+    name: name,
+    type: type,
+    price: price,
+    origin: origin,
+    tastingNotes: tastingNotes,
+    count: count,
     id: id
   }
 }
+
+// whenBottleClicked = { props.onBottleSelection }
+//         name={bottle.name}
+//         type={bottle.type}
+//         price={bottle.price}
+//         origin={bottle.origin}
+//         tastingNotes={bottle.tastingNotes}
+//         count={bottle.count}
+//         id={bottle.id}
+//         key={bottle.id}/>

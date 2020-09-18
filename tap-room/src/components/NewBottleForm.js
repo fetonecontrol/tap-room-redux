@@ -12,7 +12,7 @@ function NewBottleForm(props){
       price: event.target.price.value,
       origin: event.target.origin.value,
       tastingNotes: event.target.tastingNotes.value,
-      count: 12,
+      count: 300,
       id: v4()});
   }
 
