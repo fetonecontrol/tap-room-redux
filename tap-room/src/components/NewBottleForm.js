@@ -8,9 +8,10 @@ function NewBottleForm(props){
   function handleNewBottleFormSubmission(event) {
     event.preventDefault();
     props.onNewBottleCreation({
-      names: event.target.names.value, 
-      location: event.target.location.value,
-      issue: event.target.issue.value,
+      name: event.target.name.value,
+      kind: event.target.kind.value,
+      price: event.target.price.value,
+      origin: event.target.origin.value,
       id: v4()});
   }
 
@@ -18,7 +19,7 @@ function NewBottleForm(props){
     <React.Fragment>
       <ReusableForm 
         formSubmissionHandler={handleNewBottleFormSubmission}
-        buttonText="Help!" />
+        buttonText="Add Bottle!" />
     </React.Fragment>
   );
 }

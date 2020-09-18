@@ -19,12 +19,13 @@ export const selectedBottle = bottle => ({
 })
 
 export const addBottle = (bottle) => {
-  const { names, location, issue, id } = bottle;
+  const { name, kind, price, origin, id } = bottle;
   return {
     type: c.ADD_BOTTLE,
-    names: names,
-    location: location,
-    issue: issue,
+    name: name,
+    kind: kind,
+    price: price,
+    origin: origin,
     id: id
   }
 }

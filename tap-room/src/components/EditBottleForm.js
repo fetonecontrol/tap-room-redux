@@ -7,7 +7,12 @@ function EditBottleForm (props) {
 
   function handleEditBottleFormSubmission(event) {
     event.preventDefault();
-    props.onEditBottle({names: event.target.names.value, location: event.target.location.value, issue: event.target.issue.value, id: bottle.id});
+    props.onEditBottle({
+      name: event.target.name.value,
+      type: event.target.type.value,
+      price: event.target.price.value,
+      origin: event.target.origin.value,
+      id: bottle.id});
   }
 
   return (

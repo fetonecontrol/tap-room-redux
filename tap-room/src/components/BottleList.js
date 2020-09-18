@@ -9,9 +9,10 @@ function BottleList(props){
       {Object.values(props.bottleList).map((bottle) => {
         return <Bottle
           whenBottleClicked = { props.onBottleSelection }
-          names={bottle.names}
-          location={bottle.location}
-          issue={bottle.issue}
+          name={bottle.name}
+          type={bottle.type}
+          price={bottle.price}
+          bottle={bottle.origin}
           id={bottle.id}
           key={bottle.id}/>
 })}

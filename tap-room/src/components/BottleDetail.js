@@ -7,8 +7,10 @@ function BottleDetail(props){
   return (
     <React.Fragment>
       <h1>Bottle Detail</h1>
-      <h3>{bottle.location} - {bottle.names}</h3>
-      <p><em>{bottle.issue}</em></p>
+      <p>{bottle.name}</p>
+      <p>{bottle.kind}</p>
+      <p>{bottle.price}</p>
+      <p>{bottle.origin}</p>
       <button onClick={ props.onClickingEdit }>Update Bottle</button>
       <button onClick={()=> onClickingDelete(bottle.id) }>Close Bottle</button>
       <hr/>

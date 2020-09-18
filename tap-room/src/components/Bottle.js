@@ -5,8 +5,10 @@ function Bottle(props){
   return (
     <React.Fragment>
       <div onClick = {() => props.whenBottleClicked(props.id)}>
-        <h3>{props.location} - {props.names}</h3>
-        <p><em>{props.issue}</em></p>
+        <p>{props.name}</p>
+        <p>{props.kind}</p>
+        <p>{props.price}</p>
+        <p>{props.origin}</p>
       </div>
       <hr/>
     </React.Fragment>
@@ -14,10 +16,10 @@ function Bottle(props){
 }
 
 Bottle.propTypes = {
-  names: PropTypes.string,
-  location: PropTypes.string,
-  issue: PropTypes.string,
-  id: PropTypes.string,
+  name: PropTypes.string,
+  kind: PropTypes.string,
+  price: PropTypes.string,
+  origin: PropTypes.string,
   whenBottleClicked: PropTypes.func
 };
 
