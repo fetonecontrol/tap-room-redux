@@ -4,44 +4,49 @@ import BottleList from "./BottleList";
 import BottleDetail from "./BottleDetail";
 import EditBottleForm from './EditBottleForm';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import * as a from './../actions';
 
 class BottleControl extends React.Component {
-
+  
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: false,
       selectedBottle: null,
       editing: false
     };
   }
   
-  handleEditClick = () => {
-    this.setState({editing: true});
-  }
-
-  handleChangingSelectedBottle = (id) => {
-    const selectedBottle = this.state.masterBottleList.filter(bottle => bottle.id === id)[0];
-    this.setState({selectedBottle: selectedBottle});
-  }
-
   handleClick = () => {
     if (this.state.selectedBottle != null) {
       this.setState({
-        formVisibleOnPage: false,
         selectedBottle: null,
         editing: false
-        });
+      });
     } else {
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage,
-      }));
+      const { dispatch } = this.props;
+      const action = a.toggleForm();
+      dispatch(action);
     }
   }
 
+
+  handleEditClick = () => {
+    const { dispatch } = this.props;
+    const action = a.toggleEditing();
+    dispatch(action);
+  }
+
+  handleChangingSelectedBottle = (id) => {
+    const selectedBottle = this.props.masterBottleList.filter(bottle => bottle.id === id)[0];
+    const { dispatch } = this.props;
+    const action = a.changeBottle(selectedBottle);
+    dispatch(action);
+  }
+
   handleAddingNewBottleToList = (newBottle) => {
-    const newMasterBottleList = this.state.masterBottleList.concat(newBottle);
+    const newMasterBottleList = this.props.masterBottleList.concat(newBottle);
     this.setState({
       masterBottleList: newMasterBottleList,
       formVisibleOnPage: false
@@ -49,16 +54,15 @@ class BottleControl extends React.Component {
   }
 
   handleDeletingBottle = (id) => {
-    const newMasterBottleList = this.state.masterBottleList.filter(bottle => bottle.id !==id);
-    this.setState({
-      masterBottleList: newMasterBottleList,
-      selectedBottle: null
-    });
+    const { dispatch } = this.props;
+    const action = a.deleteBottle(id);
+    dispatch(action);
+    this.setState({selectedBottle: null});
   }
 
   handleEditingBottleInList = (bottleToEdit) => {
-    const editedMasterBottleList = this.state.masterBottleList
-      .filter(bottle => bottle.id !== this.state.selectedBottle.id)
+    const editedMasterBottleList = this.props.masterBottleList
+      .filter(bottle => bottle.id !== this.props.selectedBottle.id)
       .concat(bottleToEdit);
     this.setState({
       masterBottleList: editedMasterBottleList,
@@ -66,6 +70,7 @@ class BottleControl extends React.Component {
       selectedBottle: null
     });
   }
+
   handleSellingShot = () => {
     const bottleToSell2 = this.state.masterBottleList
     .filter(bottle => bottle.id === this.state.selectedBottle.id)
@@ -92,26 +97,26 @@ class BottleControl extends React.Component {
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
-    if (this.state.editing ) {      
+    if (this.props.editing ) {      
       currentlyVisibleState = 
       <EditBottleForm
-      bottle = {this.state.selectedBottle}
+      bottle = {this.props.selectedBottle}
       onEditBottle = {this.handleEditingBottleInList} />
       buttonText = "Return to Bottle List";
-    } else if (this.state.selectedBottle != null) {
+    } else if (this.props.selectedBottle != null) {
       currentlyVisibleState = <BottleDetail 
-      bottle = {this.state.selectedBottle} 
+      bottle = {this.props.selectedBottle} 
         onClickingSell = {this.handleSellingShot}
         onClickingDelete = {this.handleDeletingBottle} 
         onClickingEdit = {this.handleEditClick} />
         buttonText = "Return to Bottle List";
-    } else if (this.state.formVisibleOnPage) {
+    } else if (this.props.formVisibleOnPage) {
         currentlyVisibleState = <NewBottleForm onNewBottleCreation={this.handleAddingNewBottleToList} />
         buttonText = "Return to Bottle List";
     } else {
         currentlyVisibleState = 
           <BottleList 
-            bottleList={this.state.masterBottleList} 
+            bottleList={this.props.masterBottleList} 
             onBottleSelection={this.handleChangingSelectedBottle} />
         buttonText = "Add Bottle"
     }
@@ -128,6 +133,21 @@ class BottleControl extends React.Component {
     );
   }
 }
+
+BottleControl.propTypes = {
+  masterBottleList: PropTypes.object
+};
+
+const mapStateToProps = state => {
+  return {
+    masterBottleList: state.masterBottleList,
+    formVisibleOnPage: state.formVisibleOnPage,
+    selectedBottle: state.selectedBottle,
+    editing: state.editing,
+
+  }
+}
+
 BottleControl = connect(mapStateToProps)(BottleControl);
 
 export default BottleControl;

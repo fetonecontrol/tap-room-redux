@@ -1,8 +1,5 @@
 import * as c from './../actions/ActionTypes';
 
-export const changeBottle = () => ({
-  type: c.CHANGE_BOTTLE,
-})
 
 export const toggleEditing = () => ({
   type: c.TOGGLE_EDITING,
@@ -12,15 +9,20 @@ export const toggleForm = () => ({
   type: c.TOGGLE_FORM,
 });
 
-export const deleteTicket = id => ({
-  type: c.DELETE_TICKET,
+export const changeBottle = id => ({
+  type: c.CHANGE_BOTTLE,
   id
 });
 
-export const addTicket = (ticket) => {
+export const deleteBottle = id => ({
+  type: c.DELETE_BOTTLE,
+  id
+});
+
+export const addBottle = (ticket) => {
   const { names, location, issue, id } = ticket;
   return {
-    type: c.ADD_TICKET,
+    type: c.ADD_BOTTLE,
     names: names,
     location: location,
     issue: issue,

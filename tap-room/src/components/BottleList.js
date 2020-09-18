@@ -6,8 +6,8 @@ function BottleList(props){
   return (
     <React.Fragment>
       <hr/>
-      {props.bottleList.map((bottle) =>
-        <Bottle
+      {Object.values(props.bottleList).map((bottle) => {
+        return <Bottle
         whenBottleClicked = { props.onBottleSelection }
         name={bottle.name}
         type={bottle.type}
@@ -17,13 +17,13 @@ function BottleList(props){
         count={bottle.count}
         id={bottle.id}
         key={bottle.id}/>
-      )}
+      })}
     </React.Fragment>
   );
 }
 
 BottleList.propTypes = {
-  bottleList: PropTypes.array,
+  bottleList: PropTypes.object,
   onBottleSelection: PropTypes.func
 };
 
