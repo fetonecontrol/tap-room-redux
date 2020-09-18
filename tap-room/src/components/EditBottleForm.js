@@ -2,19 +2,14 @@ import React from "react";
 import ReusableForm from "./ReusableForm";
 import PropTypes from "prop-types";
 
-function EditBottleForm(props){
-  const {bottle} = props;
-  function handleEditBottleFormSubmission(event){
+function EditBottleForm (props) {
+  const { bottle } = props;
+
+  function handleEditBottleFormSubmission(event) {
     event.preventDefault();
-    props.onEditBottle({
-      name: event.target.name.value,
-      type: event.target.type.value,
-      price: event.target.price.value,
-      origin: event.target.origin.value,
-      tastingNotes: event.target.tastingNotes.value,
-      count : bottle.count,
-      id: bottle.id});
+    props.onEditBottle({names: event.target.names.value, location: event.target.location.value, issue: event.target.issue.value, id: bottle.id});
   }
+
   return (
     <React.Fragment>
       <ReusableForm 

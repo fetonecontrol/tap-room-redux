@@ -85,7 +85,7 @@ class BottleControl extends React.Component {
       currentlyVisibleState = <BottleList 
         bottleList={this.props.masterBottleList} 
         onBottleSelection={this.handleChangingSelectedBottle} />;
-        buttonText = "Add New Bottle!"
+        buttonText = "Add Bottle"
     }
     return (
       <React.Fragment>
@@ -111,25 +111,3 @@ const mapStateToProps = state => {
 BottleControl = connect(mapStateToProps)(BottleControl);
 
 export default BottleControl;
-                                                // handleSellingShot = () => {
-                                                //   const bottleToSell2 = this.state.masterBottleList
-                                                //   .filter(bottle => bottle.id === this.state.selectedBottle.id)
-                                                //   const subtractCount = this.state.selectedBottle.count -12;
-                                                //   const bottleToAdd = {
-                                                //     name: this.state.selectedBottle.name, 
-                                                //     type: this.state.selectedBottle.type,
-                                                //     price: this.state.selectedBottle.price,
-                                                //     origin: this.state.selectedBottle.origin,
-                                                //     tastingNotes: this.state.selectedBottle.tastingNotes,
-                                                //     id: this.state.selectedBottle.id,
-                                                //     count: subtractCount };
-                                                //   const editedMasterBottleList = this.state.masterBottleList
-                                                //   .filter(bottle => bottle.id !== this.state.selectedBottle.id)
-                                                //   .concat(bottleToAdd);
-                                                //   this.setState({
-                                                //     masterBottleList: editedMasterBottleList,
-                                                //     editing: false,
-                                                //     selectedBottle: null
-                                                //   });
-                                                // }
-                                                

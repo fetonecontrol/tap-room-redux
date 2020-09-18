@@ -4,23 +4,21 @@ import PropTypes from "prop-types";
 import ReusableForm from "./ReusableForm";
 
 function NewBottleForm(props){
+
   function handleNewBottleFormSubmission(event) {
     event.preventDefault();
     props.onNewBottleCreation({
-      name: event.target.name.value,
-      type: event.target.type.value,
-      price: event.target.price.value,
-      origin: event.target.origin.value,
-      tastingNotes: event.target.tastingNotes.value,
-      count: 300,
+      names: event.target.names.value, 
+      location: event.target.location.value,
+      issue: event.target.issue.value,
       id: v4()});
   }
 
   return (
     <React.Fragment>
-      <ReusableForm
-      formSubmissionHandler={handleNewBottleFormSubmission}
-      buttonText="Add!" />
+      <ReusableForm 
+        formSubmissionHandler={handleNewBottleFormSubmission}
+        buttonText="Help!" />
     </React.Fragment>
   );
 }

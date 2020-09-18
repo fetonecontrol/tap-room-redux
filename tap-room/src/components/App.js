@@ -1,11 +1,11 @@
 import React from "react";
-import NavBar from "./NavBar";
+import Navbar from "./NavBar";
 import BottleControl from "./BottleControl";
 
 function App(){
   return ( 
     <React.Fragment>
-      <NavBar />
+      <Navbar />
       <BottleControl />
     </React.Fragment>
   );
