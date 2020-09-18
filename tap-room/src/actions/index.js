@@ -31,13 +31,3 @@ export const addBottle = (bottle) => {
     id: id
   }
 }
-
-// whenBottleClicked = { props.onBottleSelection }
-//         name={bottle.name}
-//         type={bottle.type}
-//         price={bottle.price}
-//         origin={bottle.origin}
-//         tastingNotes={bottle.tastingNotes}
-//         count={bottle.count}
-//         id={bottle.id}
-//         key={bottle.id}/>

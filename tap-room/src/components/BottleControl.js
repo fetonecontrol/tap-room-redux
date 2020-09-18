@@ -85,6 +85,7 @@ class BottleControl extends React.Component {
       currentlyVisibleState = <BottleList 
         bottleList={this.props.masterBottleList} 
         onBottleSelection={this.handleChangingSelectedBottle} />;
+        buttonText = "Add New Bottle!"
     }
     return (
       <React.Fragment>
