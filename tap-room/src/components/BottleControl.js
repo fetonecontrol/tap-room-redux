@@ -50,8 +50,12 @@ class BottleControl extends React.Component {
   handleEditingBottleInList = (bottleToEdit) => {
     const { dispatch } = this.props;
     const action = a.addBottle(bottleToEdit);
-    dispatch(action);
+    const action3 = a.selectedBottle(bottleToEdit);
     const action2 = a.toggleForm();
+    const action4 = a.toggleEditing();
+    dispatch(action);
+    dispatch(action3);
+    dispatch(action4);
     dispatch(action2);
   }
   
@@ -75,7 +79,7 @@ class BottleControl extends React.Component {
     } else if (this.props.selectedBottle != null) {
       currentlyVisibleState = 
       <BottleDetail 
-        bottle = {this.props.selectedBottle} 
+        bottle = {this.props.selectedBottle}
         onClickingDelete = {this.handleDeletingBottle} 
         onClickingEdit = {this.handleEditClick} />
         buttonText = "Return to Bottle List";
