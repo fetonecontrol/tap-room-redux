@@ -51,19 +51,19 @@ class BottleControl extends React.Component {
     const { dispatch } = this.props;
     const action = a.addBottle(bottleToEdit);
     const action3 = a.selectedBottle(bottleToEdit);
-    const action2 = a.toggleForm();
     const action4 = a.toggleEditing();
     dispatch(action);
     dispatch(action3);
     dispatch(action4);
-    dispatch(action2);
   }
   
   handleDeletingBottle = (id) => {
     const { dispatch } = this.props;
     const action = a.deleteBottle(id);
+    console.log(id);
     dispatch(action);
     const action2 = a.selectedBottle();
+    console.log(this.selectedBottle);
     dispatch(action2);
   }
 
