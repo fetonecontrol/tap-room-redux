@@ -1,12 +1,10 @@
-import { selectedBottle } from '../actions';
-import * as c from '../actions/ActionTypes';
 
-export default (state, action) => {
+import * as c from './../actions/ActionTypes';
+
+export default (state = null, action) => {
   switch (action.type) {
   case c.SELECTED_BOTTLE:
-    return Object.assign({}, state, {
-      selectedBottle: state
-    });
+    return Object.assign({}, state, action);
   default:
     return null;
   }

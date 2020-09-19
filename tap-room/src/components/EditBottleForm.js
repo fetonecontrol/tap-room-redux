@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
 
 function EditBottleForm (props) {
   const { bottle } = props;
+  console.log(bottle);
 
   function handleEditBottleFormSubmission(event) {
     event.preventDefault();
     props.onEditBottle({
       name: event.target.name.value,
-      type: event.target.type.value,
+      kind: event.target.kind.value,
       price: event.target.price.value,
       origin: event.target.origin.value,
       id: bottle.id});

@@ -15,7 +15,7 @@ function BottleList(props){
           bottle={bottle.origin}
           id={bottle.id}
           key={bottle.id}/>
-})}
+        })}
     </React.Fragment>
   );
 }

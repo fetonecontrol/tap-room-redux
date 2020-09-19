@@ -6,7 +6,7 @@ export default (state = {}, action) => {
   case c.ADD_BOTTLE:
     return Object.assign({}, state, {
       [id]: {
-        names: name,
+        name: name,
         kind: kind,
         price: price,
         origin: origin,

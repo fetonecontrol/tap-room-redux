@@ -15,14 +15,14 @@ class BottleControl extends React.Component {
 
   handleClick = () => {
     const { dispatch } = this.props;
-    const action = a.toggleEditing();
-    const action2 = a.selectedBottle();
     if (this.props.selectedBottle != null) {
+      const action2 = a.selectedBottle();
+      const action = a.toggleEditing();
+      dispatch(action);
       dispatch(action2);
-      dispatch(action);
     } else {
-      const action = a.toggleForm();
-      dispatch(action);
+      const action3 = a.toggleForm();
+      dispatch(action3);
     }
   }
 
@@ -51,13 +51,8 @@ class BottleControl extends React.Component {
     const { dispatch } = this.props;
     const action = a.addBottle(bottleToEdit);
     dispatch(action);
-
     const action2 = a.toggleForm();
     dispatch(action2);
-
-    const action3 = a.selectedBottle(bottleToEdit);
-
-    dispatch(action3);
   }
   
   handleDeletingBottle = (id) => {
@@ -71,7 +66,8 @@ class BottleControl extends React.Component {
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
-    if (this.props.editing ) {      
+    if (this.props.editing ) {    
+      console.log(this.props.selectedBottle);  
       currentlyVisibleState = <EditBottleForm
       bottle = {this.props.selectedBottle}
       onEditBottle = {this.handleEditingBottleInList} />
